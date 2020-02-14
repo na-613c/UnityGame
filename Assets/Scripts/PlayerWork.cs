@@ -17,9 +17,11 @@ public class PlayerWork : MonoBehaviour {
     private bool timeForDeath = true;
     private int counterHP = 3;
     private int timeCounter, tmpScore, tmpTime, score = 0;
-    private int timeForNewScen = 200;
+    private Color display, no_display;
 
     void Start () {
+        display = new Color (1, 1, 1, 1.0f);
+        no_display = new Color (0, 0, 0, 0);
         game_overSprite = game_over.GetComponent<SpriteRenderer> ();
         playerSprite = playerObj.GetComponent<SpriteRenderer> ();
         lowHPSprite = lowHP.GetComponent<SpriteRenderer> ();
@@ -30,7 +32,7 @@ public class PlayerWork : MonoBehaviour {
     void Update () {
         switch (counterHP) {
             case 3:
-                lowHPSprite.color = new Color (0, 0, 0, 0);
+                lowHPSprite.color = no_display;
                 break;
             case 2:
                 lowHPSprite.color = new Color (0, 0, 0, Mathf.PingPong (Time.time / 5, 0.2f));
@@ -43,7 +45,7 @@ public class PlayerWork : MonoBehaviour {
         if (!timeForDeath) {
             playerSprite.color = new Color (1, 1, 1, Mathf.PingPong (Time.time * 10, 1.0f));
         } else {
-            playerSprite.color = new Color (1, 1, 1, 1.0f);
+            playerSprite.color = display;
         }
 
         switch (tmpTime) {
@@ -64,14 +66,11 @@ public class PlayerWork : MonoBehaviour {
 
         timeCounter++;
         tmpTime++;
-        timeForNewScen++;
 
-        if (timeForNewScen == 100) SceneManager.LoadScene (2);
         if (timeCounter == 200) timeForDeath = true;
 
         if (timeCounter == 2000) timeCounter = 101;
         if (tmpTime == 2000) tmpTime = 201;
-        if (timeForNewScen == 2000) timeForNewScen = 201;
 
     }
 
@@ -128,24 +127,28 @@ public class PlayerWork : MonoBehaviour {
 
         switch (counterHP) {
             case 3:
-                hpSprite3.color = new Color (1, 1, 1, 1);
-                hpSprite2.color = new Color (1, 1, 1, 1);
+                hpSprite3.color = display;
+                hpSprite2.color = display;
                 break;
             case 2:
-                hpSprite3.color = new Color (0, 0, 0, 0);
-                hpSprite2.color = new Color (1, 1, 1, 1);
+                hpSprite3.color = no_display;
+                hpSprite2.color = display;
                 break;
             case 1:
-                hpSprite2.color = new Color (0, 0, 0, 0);
+                hpSprite2.color = no_display;
                 break;
             case 0:
                 WriteRecord ();
                 playerObj.transform.position = new Vector2 (0, -100);
-                game_overSprite.color = new Color (1, 1, 1, 1);
+                game_overSprite.color = display;
                 game_over.GetComponent<AudioSource> ().Play ();
-                timeForNewScen = 0;
+                Invoke ("ChangeScene", 2.0f);
                 break;
         }
+    }
+
+    private void ChangeScene () {
+        SceneManager.LoadScene (2);
     }
 
     private void WriteRecord () {

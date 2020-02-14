@@ -7,7 +7,7 @@ public class SpawnBattary : MonoBehaviour {
     public GameObject battary;
     public GameObject heart;
     public GameObject bomb;
-    private int counter = 0;
+    private int time_counter = 0;
     private Vector2 newVector;
 
     void Start () {
@@ -15,12 +15,12 @@ public class SpawnBattary : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        counter++;
+        time_counter++;
 
-        if ((counter % 20) == 0) GenerateBattary ();
-        if ((counter % 600) == 0) GenerateHealth ();
-        if ((counter % 400) == 0) GenerateBomb ();
-        if ((counter % 2400) == 0) counter = 0;
+        if ((time_counter % 20) == 0) GenerateBattary ();
+        if ((time_counter % 600) == 0) GenerateHealth ();
+        if ((time_counter % 400) == 0) GenerateBomb ();
+        if ((time_counter % 2400) == 0) time_counter = 0;
 
     }
 
