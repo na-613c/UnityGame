@@ -115,7 +115,6 @@ public class PlayerWork : MonoBehaviour {
     }
 
     private void DealthController () {
-
         timeForDeath = false;
         timeCounter = 0;
         counterHP--;

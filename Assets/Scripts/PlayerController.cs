@@ -2,10 +2,10 @@
 
 public class PlayerController : MonoBehaviour {
 
-    private Rigidbody2D rb;
     public float horizontalSpeed;
     public float verticalImpulse;
     public GameObject jumpBtn;
+    private Rigidbody2D rb;
     private float speedX = 0f;
     private int time = 0;
     private bool faseLeft = true;

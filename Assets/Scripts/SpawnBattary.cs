@@ -17,7 +17,7 @@ public class SpawnBattary : MonoBehaviour {
     void FixedUpdate () {
         time_counter++;
 
-        if ((time_counter % 20) == 0) GenerateBattary ();
+        if ((time_counter % 40) == 0) GenerateBattary ();
         if ((time_counter % 600) == 0) GenerateHealth ();
         if ((time_counter % 400) == 0) GenerateBomb ();
         if ((time_counter % 2400) == 0) time_counter = 0;
